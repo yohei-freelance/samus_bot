@@ -28,17 +28,19 @@ weather = today.p.string
 temp = today.div.find(class_="date-value-wrap")
 temp = temp.find_all("dd")
 temp_max = temp[0].span.string
-temp_max_diff = temp[1].string
+temp_max_diff = temp[1].string.replace("[", "").replace("]", "")
 temp_min = temp[2].span.string
-temp_min_diff = temp[3].string
-content = "【今日の文京区・本郷の天気】\n"+"最高気温は"+temp_max+"℃("+temp_max_diff+")\n"+"最低気温は"+temp_min+"℃("+temp_min_diff+")"
+temp_min_diff = temp[3].string.replace("[", "").replace("]", "")
+content = "【今日の文京区・本郷の天気】\n\n最高気温は{}℃ (前日比 : {}℃)\n最低気温は{}℃ (前日比 : {}℃)\n\n".format(temp_max, temp_max_diff, temp_min, temp_min_diff)
 
-def randomimagetwitt(folder):
+def randomimagetwitt(folder, content):
     images = glob.glob(folder + "*")
     if int(temp_min) < 5:
       image_open = images[1]
+      content += "寒すぎてサムスになった!w"
     else:
       image_open = images[0]
+      content += "今日はサムスにはなりませんw"
     api.update_with_media(image_open, status=content)
 
-randomimagetwitt("./images/")
+randomimagetwitt("./images/", content)
