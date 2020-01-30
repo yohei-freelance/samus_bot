@@ -36,10 +36,10 @@ content = "【今日の文京区・本郷の天気】\n\n最高気温は{}℃ (�
 def randomimagetwitt(folder, content):
     images = glob.glob(folder + "*")
     if int(temp_min) < 5:
-      image_open = images[1]
+      image_open = images[0]
       content += "寒すぎてサムスになった!w"
     else:
-      image_open = images[0]
+      image_open = images[1]
       content += "今日はサムスにはなりませんw"
     api.update_with_media(image_open, status=content)
 
