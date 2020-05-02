@@ -12,6 +12,7 @@ access_token_secret = "WpvFyHcG5LtyNfIhga9mghQYg3gpKeCA71t8DlplhpUDb"
 
 sam_pic="./images/samus.png"
 zero_pic="./images/zero_samus.png"
+bikini_pic='./images/bikini_samus.jpg'
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token_key, access_token_secret)
@@ -36,10 +37,13 @@ content = "【今日の文京区・本郷の天気】\n\n最高気温は{}℃ (�
 def randomimagetwitt(folder, content):
     images = glob.glob(folder + "*")
     if int(temp_min) < 10:
-      image_open = images[0]
+      image_open = sam_pic
       content += "寒すぎてサムスになった!w"
+    else if int(tmp_max >= 25):
+      image_open = bikini_pic
+      content += "暑すぎて水着になっちゃった♡"
     else:
-      image_open = images[1]
+      image_open = zero_pic
       content += "今日はサムスにはなりませんw"
     api.update_with_media(image_open, status=content)
 
